@@ -1,0 +1,729 @@
+<!DOCTYPE htm<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Examen Teórico — Licencia Querétaro</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1117;
+  --surface:#181C27;
+  --card:#1E2235;
+  --card2:#242840;
+  --border:#2E3350;
+  --border2:#3A4060;
+  --text:#EEF0F8;
+  --muted:#7880A0;
+  --subtle:#4A5070;
+  --accent:#4F8EF7;
+  --accent-dim:#1E3060;
+  --green:#22C97A;
+  --green-dim:#0D3022;
+  --green-border:#1A7A4A;
+  --red:#F05060;
+  --red-dim:#3A0F18;
+  --red-border:#8A2030;
+  --gold:#F0B840;
+  --gold-dim:#3A2A08;
+  --lv1:#4F8EF7;
+  --lv1-dim:#1A2A50;
+  --lv2:#A060F0;
+  --lv2-dim:#2A1850;
+  --lv3:#F07040;
+  --lv3-dim:#3A1808;
+  --font:'Sora',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+/* ── PANTALLA INICIO ── */
+#screen-home{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem 1rem;}
+.home-header{text-align:center;margin-bottom:3rem;}
+.home-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--accent-dim);border:1px solid var(--accent);color:var(--accent);font-size:11px;font-family:var(--mono);letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.25rem;}
+.home-title{font-size:clamp(26px,5vw,44px);font-weight:700;line-height:1.15;margin-bottom:.75rem;letter-spacing:-.02em;}
+.home-title span{color:var(--accent);}
+.home-sub{font-size:15px;color:var(--muted);max-width:500px;line-height:1.6;}
+
+.levels-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;max-width:880px;width:100%;margin-bottom:2.5rem;}
+.level-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem;cursor:pointer;transition:transform .18s,border-color .18s,box-shadow .18s;position:relative;overflow:hidden;}
+.level-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0;}
+.level-card.lv1::before{background:var(--lv1);}
+.level-card.lv2::before{background:var(--lv2);}
+.level-card.lv3::before{background:var(--lv3);}
+.level-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+.level-card.lv1:hover{border-color:var(--lv1);}
+.level-card.lv2:hover{border-color:var(--lv2);}
+.level-card.lv3:hover{border-color:var(--lv3);}
+.lv-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:1rem;}
+.lv1 .lv-icon{background:var(--lv1-dim);}
+.lv2 .lv-icon{background:var(--lv2-dim);}
+.lv3 .lv-icon{background:var(--lv3-dim);}
+.lv-num{font-size:11px;font-family:var(--mono);font-weight:500;margin-bottom:.35rem;}
+.lv1 .lv-num{color:var(--lv1);}
+.lv2 .lv-num{color:var(--lv2);}
+.lv3 .lv-num{color:var(--lv3);}
+.lv-title{font-size:18px;font-weight:600;margin-bottom:.35rem;}
+.lv-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:1rem;}
+.lv-meta{display:flex;gap:.5rem;flex-wrap:wrap;}
+.lv-tag{font-size:11px;font-family:var(--mono);padding:3px 9px;border-radius:5px;}
+.lv1 .lv-tag{background:var(--lv1-dim);color:var(--lv1);}
+.lv2 .lv-tag{background:var(--lv2-dim);color:var(--lv2);}
+.lv3 .lv-tag{background:var(--lv3-dim);color:var(--lv3);}
+.lv-progress-bar{height:4px;background:var(--border);border-radius:99px;margin-top:1rem;overflow:hidden;}
+.lv-progress-fill{height:4px;border-radius:99px;transition:width .5s ease;}
+.lv1 .lv-progress-fill{background:var(--lv1);}
+.lv2 .lv-progress-fill{background:var(--lv2);}
+.lv3 .lv-progress-fill{background:var(--lv3);}
+.lv-progress-label{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:.35rem;}
+.lv-score-saved{font-size:12px;font-family:var(--mono);font-weight:500;margin-top:.5rem;}
+.lv1 .lv-score-saved{color:var(--lv1);}
+.lv2 .lv-score-saved{color:var(--lv2);}
+.lv3 .lv-score-saved{color:var(--lv3);}
+
+.stats-row{display:flex;gap:1rem;max-width:880px;width:100%;flex-wrap:wrap;margin-bottom:.5rem;}
+.stat-home{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.85rem 1.25rem;flex:1;min-width:140px;text-align:center;}
+.stat-home .sh-val{font-size:24px;font-family:var(--mono);font-weight:500;color:var(--accent);}
+.stat-home .sh-lbl{font-size:11px;color:var(--muted);margin-top:.2rem;}
+
+/* ── PANTALLA EXAMEN ── */
+#screen-exam{display:none;min-height:100vh;padding:1rem;}
+.exam-wrap{max-width:760px;margin:0 auto;}
+
+.exam-topbar{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0;margin-bottom:1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:.75rem;}
+.topbar-left{display:flex;align-items:center;gap:.75rem;}
+.btn-home-nav{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:6px 14px;border-radius:8px;font-size:13px;font-family:var(--font);cursor:pointer;transition:border-color .15s,color .15s;}
+.btn-home-nav:hover{border-color:var(--accent);color:var(--accent);}
+.topbar-lv{font-size:11px;font-family:var(--mono);padding:4px 12px;border-radius:6px;font-weight:500;}
+.topbar-lv.lv1{background:var(--lv1-dim);color:var(--lv1);}
+.topbar-lv.lv2{background:var(--lv2-dim);color:var(--lv2);}
+.topbar-lv.lv3{background:var(--lv3-dim);color:var(--lv3);}
+.score-pills{display:flex;gap:.5rem;}
+.pill{font-size:12px;font-family:var(--mono);padding:5px 12px;border-radius:6px;font-weight:500;}
+.pill-g{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.pill-r{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+.pill-n{background:var(--card2);color:var(--muted);border:1px solid var(--border);}
+
+.prog-wrap{margin-bottom:1.25rem;}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;}
+.prog-meta span{font-size:12px;color:var(--muted);font-family:var(--mono);}
+.prog-track{height:6px;background:var(--border);border-radius:99px;overflow:hidden;}
+.prog-fill{height:6px;border-radius:99px;transition:width .4s ease;}
+.lv1-fill{background:var(--lv1);}
+.lv2-fill{background:var(--lv2);}
+.lv3-fill{background:var(--lv3);}
+
+.sec-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:11px;font-family:var(--mono);padding:4px 11px;border-radius:6px;margin-bottom:.85rem;font-weight:500;}
+.sb-a{background:#1A2A50;color:#6AA0F8;}
+.sb-b{background:#0D3022;color:#22C97A;}
+.sb-c{background:#2A1050;color:#C070F8;}
+.sb-d{background:#3A1808;color:#F08050;}
+
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;margin-bottom:.85rem;}
+.q-num-line{font-size:11px;color:var(--muted);font-family:var(--mono);letter-spacing:.08em;margin-bottom:.6rem;}
+.q-text{font-size:16px;font-weight:500;line-height:1.7;color:var(--text);}
+
+.options-list{display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem;}
+.opt-btn{width:100%;text-align:left;padding:.85rem 1.1rem;border:1px solid var(--border2);border-radius:10px;background:var(--card2);cursor:pointer;font-size:14px;font-family:var(--font);color:var(--text);transition:background .12s,border-color .12s;display:flex;align-items:flex-start;gap:.75rem;line-height:1.55;}
+.opt-letter{font-family:var(--mono);font-size:12px;font-weight:500;min-width:20px;margin-top:1px;color:var(--subtle);flex-shrink:0;}
+.opt-btn:hover:not(:disabled){background:#272B42;border-color:var(--accent);}
+.opt-btn.ans-correct{background:var(--green-dim);border:1.5px solid var(--green-border);color:var(--green);}
+.opt-btn.ans-correct .opt-letter{color:var(--green);}
+.opt-btn.ans-wrong{background:var(--red-dim);border:1.5px solid var(--red-border);color:var(--red);}
+.opt-btn.ans-wrong .opt-letter{color:var(--red);}
+.opt-btn.ans-reveal{background:var(--green-dim);border:1.5px solid var(--green-border);color:var(--green);}
+.opt-btn.ans-reveal .opt-letter{color:var(--green);}
+.opt-btn:disabled{cursor:default;}
+
+.feedback-box{padding:.85rem 1.1rem;border-radius:10px;font-size:14px;font-weight:500;margin-bottom:.85rem;display:none;line-height:1.55;}
+.feedback-box.show{display:block;}
+.fb-ok{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);}
+.fb-no{background:var(--red-dim);color:var(--red);border:1px solid var(--red-border);}
+
+.nav-bar{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;}
+.btn-nav{padding:.65rem 1.3rem;border-radius:9px;border:1px solid var(--border2);background:var(--card2);cursor:pointer;font-size:14px;font-family:var(--font);color:var(--text);transition:background .12s,border-color .12s;}
+.btn-nav:hover:not(:disabled){background:var(--card);border-color:var(--accent);}
+.btn-nav:disabled{opacity:.3;cursor:default;}
+.btn-finish{background:var(--accent);color:#fff;border:1px solid var(--accent);display:none;font-weight:500;}
+.btn-finish:hover{opacity:.88;background:var(--accent);}
+
+/* ── PANTALLA RESULTADOS ── */
+#screen-results{display:none;min-height:100vh;padding:2rem 1rem;align-items:center;justify-content:center;}
+.res-wrap{max-width:640px;width:100%;margin:0 auto;}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:2rem;margin-bottom:1rem;}
+.res-topbadge{font-size:11px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.res-big{font-size:clamp(52px,10vw,80px);font-family:var(--mono);font-weight:700;line-height:1;margin:.5rem 0;}
+.res-label{font-size:15px;margin-bottom:1.75rem;color:var(--muted);}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:1.75rem;}
+.rs-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem;text-align:center;}
+.rs-val{font-size:24px;font-family:var(--mono);font-weight:600;}
+.rs-lbl{font-size:11px;color:var(--muted);margin-top:.2rem;}
+.sec-breakdown{margin-bottom:1.75rem;}
+.sec-breakdown h3{font-size:13px;font-family:var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem;}
+.sb-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.55rem;}
+.sb-name{font-size:12px;font-family:var(--mono);min-width:85px;}
+.sb-track{flex:1;height:7px;background:var(--border);border-radius:99px;overflow:hidden;}
+.sb-bar{height:7px;border-radius:99px;transition:width .6s ease;}
+.sb-pct{font-size:12px;font-family:var(--mono);min-width:40px;text-align:right;color:var(--muted);}
+.all-levels-summary{margin-bottom:1.75rem;}
+.all-levels-summary h3{font-size:13px;font-family:var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem;}
+.als-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem .85rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:.4rem;font-size:13px;}
+.als-name{color:var(--text);}
+.als-score{font-family:var(--mono);font-weight:500;}
+.res-actions{display:flex;gap:.6rem;flex-wrap:wrap;}
+.btn-retry2{background:var(--accent);color:#fff;border:none;padding:.75rem 1.75rem;border-radius:9px;font-size:14px;font-family:var(--font);font-weight:500;cursor:pointer;transition:opacity .15s;}
+.btn-retry2:hover{opacity:.85;}
+.btn-home2{background:transparent;color:var(--text);border:1px solid var(--border2);padding:.75rem 1.5rem;border-radius:9px;font-size:14px;font-family:var(--font);cursor:pointer;transition:border-color .15s;}
+.btn-home2:hover{border-color:var(--accent);}
+
+/* DECORATIVE BG DOTS */
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 1px 1px, var(--border) 1px, transparent 0);background-size:32px 32px;opacity:.35;pointer-events:none;z-index:0;}
+#screen-home,#screen-exam,#screen-results{position:relative;z-index:1;}
+
+@media(max-width:520px){
+  .levels-grid{grid-template-columns:1fr;}
+  .res-stats{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HOME ════════════════ -->
+<div id="screen-home">
+  <div class="home-header">
+    <div class="home-badge">🚦 SSC Querétaro</div>
+    <h1 class="home-title">Examen Teórico<br><span>Educación Vial</span></h1>
+    <p class="home-sub">100 preguntas en 3 niveles de dificultad. Tus avances se guardan automáticamente.</p>
+  </div>
+
+  <div class="stats-row" id="global-stats">
+    <div class="stat-home"><div class="sh-val" id="gs-intentos">0</div><div class="sh-lbl">Intentos totales</div></div>
+    <div class="stat-home"><div class="sh-val" id="gs-mejor">—</div><div class="sh-lbl">Mejor calificación</div></div>
+    <div class="stat-home"><div class="sh-val" id="gs-niveles">0/3</div><div class="sh-lbl">Niveles completados</div></div>
+  </div>
+
+  <div class="levels-grid">
+    <div class="level-card lv1" onclick="startLevel(1)">
+      <div class="lv-icon">🟦</div>
+      <div class="lv-num">NIVEL 1</div>
+      <div class="lv-title">Fundamentos</div>
+      <div class="lv-desc">Señales de tránsito, obligaciones básicas del conductor y límites de velocidad.</div>
+      <div class="lv-meta">
+        <span class="lv-tag">30 preguntas</span>
+        <span class="lv-tag">Básico</span>
+      </div>
+      <div class="lv-progress-bar"><div class="lv-progress-fill" id="prog-lv1" style="width:0%"></div></div>
+      <div class="lv-progress-label" id="lbl-lv1">Sin intentos</div>
+      <div class="lv-score-saved" id="score-lv1"></div>
+    </div>
+    <div class="level-card lv2" onclick="startLevel(2)">
+      <div class="lv-icon">🟣</div>
+      <div class="lv-num">NIVEL 2</div>
+      <div class="lv-title">Intermedio</div>
+      <div class="lv-desc">Prohibiciones, preferencia de paso, seguridad vial y reglas de estacionamiento.</div>
+      <div class="lv-meta">
+        <span class="lv-tag">40 preguntas</span>
+        <span class="lv-tag">Intermedio</span>
+      </div>
+      <div class="lv-progress-bar"><div class="lv-progress-fill" id="prog-lv2" style="width:0%"></div></div>
+      <div class="lv-progress-label" id="lbl-lv2">Sin intentos</div>
+      <div class="lv-score-saved" id="score-lv2"></div>
+    </div>
+    <div class="level-card lv3" onclick="startLevel(3)">
+      <div class="lv-icon">🟠</div>
+      <div class="lv-num">NIVEL 3</div>
+      <div class="lv-title">Avanzado</div>
+      <div class="lv-desc">Licencias, penalizaciones, hechos de tránsito y normativa avanzada.</div>
+      <div class="lv-meta">
+        <span class="lv-tag">30 preguntas</span>
+        <span class="lv-tag">Avanzado</span>
+      </div>
+      <div class="lv-progress-bar"><div class="lv-progress-fill" id="prog-lv3" style="width:0%"></div></div>
+      <div class="lv-progress-label" id="lbl-lv3">Sin intentos</div>
+      <div class="lv-score-saved" id="score-lv3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ EXAMEN ════════════════ -->
+<div id="screen-exam">
+  <div class="exam-wrap">
+    <div class="exam-topbar">
+      <div class="topbar-left">
+        <button class="btn-home-nav" onclick="goHome()">← Inicio</button>
+        <span class="topbar-lv" id="topbar-lv">Nivel 1</span>
+      </div>
+      <div class="score-pills">
+        <span class="pill pill-g" id="sc-ok">✓ 0</span>
+        <span class="pill pill-r" id="sc-no">✗ 0</span>
+        <span class="pill pill-n" id="sc-num">1/30</span>
+      </div>
+    </div>
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span id="prog-sec-name">Sección A</span>
+        <span id="prog-pct-txt">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill lv1-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+    <div id="sec-badge"></div>
+    <div class="q-card">
+      <div class="q-num-line" id="q-num"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="options-list" id="opts"></div>
+    </div>
+    <div class="feedback-box" id="feedback"></div>
+    <div class="nav-bar">
+      <button class="btn-nav" id="btn-prev" onclick="prevQ()" disabled>← Anterior</button>
+      <button class="btn-nav" id="btn-next" onclick="nextQ()" disabled>Siguiente →</button>
+      <button class="btn-nav btn-finish" id="btn-finish" onclick="showResults()">Ver calificación →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ RESULTADOS ════════════════ -->
+<div id="screen-results" style="display:none;flex-direction:column;">
+  <div class="res-wrap">
+    <div class="res-card">
+      <div class="res-topbadge" id="res-badge">Nivel 1 — Resultado</div>
+      <div class="res-big" id="res-pct">—</div>
+      <div class="res-label" id="res-label"></div>
+      <div class="res-stats">
+        <div class="rs-box"><div class="rs-val" style="color:var(--green)" id="res-ok">0</div><div class="rs-lbl">Correctas</div></div>
+        <div class="rs-box"><div class="rs-val" style="color:var(--red)" id="res-no">0</div><div class="rs-lbl">Incorrectas</div></div>
+        <div class="rs-box"><div class="rs-val" id="res-tot">0</div><div class="rs-lbl">Total</div></div>
+      </div>
+      <div class="sec-breakdown">
+        <h3>Por sección</h3>
+        <div id="sec-bars"></div>
+      </div>
+      <div class="all-levels-summary">
+        <h3>Historial de niveles</h3>
+        <div id="levels-history"></div>
+      </div>
+      <div class="res-actions">
+        <button class="btn-retry2" onclick="retryLevel()">🔄 Reintentar nivel</button>
+        <button class="btn-home2" onclick="goHome()">← Elegir nivel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// BANCO DE PREGUNTAS — 100 TOTAL
+// ══════════════════════════════════════════
+// s = índice de sección (0=A,1=B,2=C,3=D), lv = nivel (1,2,3)
+const BANK = [
+/* ── NIVEL 1 · Sección A — Señales (8) ── */
+{lv:1,s:0,q:"¿Cuál es la función principal de las señales de tránsito informativas?",opts:["Prohibir maniobras peligrosas","Guiar al usuario e informarle sobre nombres, servicios y kilometrajes","Indicar el límite de velocidad máxima","Advertir sobre peligros en el camino"],ans:1},
+{lv:1,s:0,q:"¿De qué color son las señales preventivas y qué indican?",opts:["Blancas con aro rojo, indican prohibiciones","Azules con blanco, informan sobre servicios","Amarillas con símbolos negros, advierten de un peligro","Verdes con blanco, guían el itinerario"],ans:2},
+{lv:1,s:0,q:"¿Qué característica tienen las señales restrictivas?",opts:["Son azules con letras blancas","Color blanco con un aro rojo, indican limitaciones o prohibiciones que regulan el tránsito","Son amarillas con símbolos negros","Son verdes e informan sobre nombres de lugares"],ans:1},
+{lv:1,s:0,q:"¿Cuál de los siguientes es ejemplo de señal informativa?",opts:["ALTO","Cruce de caminos","Incorporación lateral","Guía de turistas"],ans:3},
+{lv:1,s:0,q:"¿Qué tipo de señal es 'CRUCE DE CAMINOS'?",opts:["Informativa","Restrictiva","Preventiva","De emergencia"],ans:2},
+{lv:1,s:0,q:"¿Qué señal restrictiva indica detenerse completamente?",opts:["Doble sentido de tránsito","Vuelta continua","ALTO","Conserve su derecha"],ans:2},
+{lv:1,s:0,q:"¿La señal de 'GLORIETA' es de qué tipo?",opts:["Informativa","Restrictiva","Preventiva","De seguridad"],ans:2},
+{lv:1,s:0,q:"¿Qué indica la señal 'CONSERVE SU DERECHA'?",opts:["Girar obligatoriamente a la derecha","El conductor debe circular por el carril derecho","Está prohibido rebasar por la derecha","El carril derecho está cerrado"],ans:1},
+
+/* ── NIVEL 1 · Sección B — Obligaciones básicas (12) ── */
+{lv:1,s:1,q:"¿Qué deben portar los conductores menores de edad de vehículos particulares?",opts:["Licencia vigente del tipo de vehículo","Permiso de conducir","Tarjeta de circulación provisional","Seguro especial para menores"],ans:1},
+{lv:1,s:1,q:"¿Cuál es la velocidad máxima en vías primarias sin señalamiento restrictivo?",opts:["60 km/h","100 km/h","80 km/h","50 km/h"],ans:2},
+{lv:1,s:1,q:"¿Cuál es el límite de velocidad en zonas escolares, hospitales y asilos?",opts:["30 km/h","10 km/h","20 km/h","15 km/h"],ans:2},
+{lv:1,s:1,q:"¿Cuál es la velocidad máxima en estacionamientos y vías peatonales?",opts:["20 km/h","10 km/h","30 km/h","5 km/h"],ans:1},
+{lv:1,s:1,q:"¿Cuál es la velocidad máxima en vías secundarias incluyendo laterales?",opts:["80 km/h","40 km/h","60 km/h","50 km/h"],ans:2},
+{lv:1,s:1,q:"¿Cuál es la velocidad en zonas de tránsito lento?",opts:["10 km/h","30 km/h","20 km/h","40 km/h"],ans:1},
+{lv:1,s:1,q:"¿Qué deben hacer los motociclistas respecto a sus luces?",opts:["Encenderlas solo de noche","Circular en todo momento con las luces traseras y delanteras encendidas","Solo encender luces traseras de día","Usar luces intermitentes permanentemente"],ans:1},
+{lv:1,s:1,q:"¿Qué deben usar los motociclistas para proteger su cabeza?",opts:["Cualquier casco deportivo","Casco diseñado para motociclistas conforme a la NOM, colocado y abrochado correctamente","Casco de ciclismo estándar","Solo visera delantera"],ans:1},
+{lv:1,s:1,q:"¿Qué obligación tienen los conductores al abrir las portezuelas?",opts:["Siempre circular con las ventanas abiertas","Verificar que no se interfiera el flujo de peatones u otros vehículos antes de abrirlas","Asegurarse de que estén abiertas en zonas escolares","Solo en autopistas deben cerrar las portezuelas"],ans:1},
+{lv:1,s:1,q:"¿Qué documentos obligatorios debe llevar un vehículo motorizado en Querétaro?",opts:["Solo placas y tarjeta de circulación","Placas vigentes, calcomanía permanente, holograma de verificación, tarjeta de circulación y póliza de seguro entre otros","Solo licencia, seguro y factura","Solo permiso provisional y póliza"],ans:1},
+{lv:1,s:1,q:"¿Cuándo deben encenderse las luces del vehículo?",opts:["Únicamente de noche","Solo en autopistas","Cuando disminuya sensiblemente la visibilidad por cualquier factor ambiental o de infraestructura","Solo cuando llueve"],ans:2},
+{lv:1,s:1,q:"¿Qué debe hacer el conductor ante una señal de ALTO?",opts:["Reducir velocidad a 20 km/h y continuar","Detenerse completamente en la línea de alto antes de cruzar","Ceder el paso solo si hay peatones","Disminuir velocidad y continuar si no hay vehículos"],ans:1},
+
+/* ── NIVEL 1 · Sección C — Prohibiciones básicas (6) ── */
+{lv:1,s:2,q:"¿Cuál acción está PROHIBIDA al conducir?",opts:["Usar cinturón de seguridad","Usar teléfono celular mientras el vehículo está en movimiento","Encender luces al bajar visibilidad","Verificar que los pasajeros usen cinturón"],ans:1},
+{lv:1,s:2,q:"¿Qué se prohíbe instalar en la parte delantera del vehículo?",opts:["Calcomanías de circulación","Televisores o pantallas de proyección de video","Holograma de verificación vehicular","Chip del Registro Público Vehicular"],ans:1},
+{lv:1,s:2,q:"¿Dónde se prohíbe estacionar un vehículo?",opts:["En zonas residenciales de madrugada","Sobre banquetas, cruces peatonales y vías ciclistas exclusivas","Solo frente a hidrantes","En calles de doble sentido sin señal"],ans:1},
+{lv:1,s:2,q:"¿En qué lugar del vehículo deben viajar los menores de 12 años?",opts:["En cualquier asiento con cinturón","En los asientos traseros; está prohibido en los asientos delanteros","En el copiloto si son mayores de 8 años","Con el conductor supervisados por adulto"],ans:1},
+{lv:1,s:2,q:"¿Quiénes tienen preferencia de paso sobre los vehículos motorizados?",opts:["Los vehículos de transporte público","Los peatones y los vehículos no motorizados","Los vehículos de carga pesada","Los taxis concesionados"],ans:1},
+{lv:1,s:2,q:"¿Qué debe hacer el conductor cuando el semáforo está en rojo?",opts:["Disminuir velocidad y continuar si no hay vehículos","Detenerse en la línea de alto sin invadir el cruce peatonal","Ceder el paso solo a peatones y continuar","Avanzar lentamente si lleva mucho tiempo en rojo"],ans:1},
+
+/* ── NIVEL 1 · Sección D — Licencias básicas (4) ── */
+{lv:1,s:3,q:"¿Qué requisitos debe acreditar quien solicita una licencia tipo A?",opts:["Solo el examen teórico","Identificación oficial, domicilio, saber leer y escribir, examen médico, examen teórico y práctico entre otros","Solo el examen médico y práctico","Solo identificación y pago de derechos"],ans:1},
+{lv:1,s:3,q:"¿Para qué vehículos aplica la licencia tipo B?",opts:["Motocicletas","Automotores de más de 10 asientos y vehículos de carga","Vehículos particulares","Bicicletas eléctricas"],ans:1},
+{lv:1,s:3,q:"¿Para qué vehículo aplica la licencia tipo D?",opts:["Vehículos de carga pesada","Más de 10 asientos","Motocicletas (examen teórico-práctico para motociclistas)","Transporte de sustancias peligrosas"],ans:2},
+{lv:1,s:3,q:"¿Al acumular cuántos puntos de penalización se cancela la licencia?",opts:["6 puntos","20 puntos","12 puntos","10 puntos"],ans:2},
+
+/* ══════════════════════════════════
+   NIVEL 2 — INTERMEDIO (40 preguntas)
+   ══════════════════════════════════ */
+/* Sección A — Señales intermedio (8) */
+{lv:2,s:0,q:"¿Qué indica la señal 'PARADA SUPRIMIDA'?",opts:["Que está prohibido el rebase en esa zona","Que ya no existe una parada de transporte público en ese punto","El carril está reservado para emergencias","Está prohibido girar a la derecha"],ans:1},
+{lv:2,s:0,q:"¿Cuál NO es una señal preventiva según la guía?",opts:["Cruce de caminos","Entronque en T","Doble sentido de tránsito","ALTO"],ans:3},
+{lv:2,s:0,q:"¿Qué simbolizan las señales informativas de 'ACUEDUCTOS' o 'ARTESANÍAS'?",opts:["Peligros en la vía","Servicios de emergencia cercanos","Puntos de interés cultural o turístico","Restricciones de circulación"],ans:2},
+{lv:2,s:0,q:"¿Cuántas categorías de señales de tránsito existen según la guía de Querétaro?",opts:["Dos: informativas y restrictivas","Cuatro: informativas, preventivas, restrictivas y de emergencia","Tres: informativas, preventivas y restrictivas","Cinco categorías distintas"],ans:2},
+{lv:2,s:0,q:"'INCORPORACIÓN LATERAL OBLICUA' es una señal de tipo:",opts:["Informativa","Restrictiva","Preventiva","De regulación especial"],ans:2},
+{lv:2,s:0,q:"¿Qué diferencia hay entre señal preventiva y restrictiva?",opts:["La preventiva es más grande","La preventiva advierte un peligro; la restrictiva indica una limitación o prohibición","Ambas tienen el mismo color pero diferente forma","La restrictiva solo aplica de noche"],ans:1},
+{lv:2,s:0,q:"¿Qué tipo de señal es 'SALIDA'?",opts:["Preventiva","Restrictiva","Informativa","De regulación especial"],ans:2},
+{lv:2,s:0,q:"¿Qué indica la señal 'PROHIBIDO REBASAR'?",opts:["Solo está prohibido rebasar motos","Está prohibido adelantar o sobrepasar a otro vehículo en ese tramo","Está prohibido reducir la velocidad","Solo aplica para vehículos de carga"],ans:1},
+
+/* Sección B — Obligaciones intermedio (12) */
+{lv:2,s:1,q:"Los conductores de transporte escolar, además de licencia, deben:",opts:["Solo portar tarjetón de operador","Usar cromática autorizada por el IQT y contar con permiso o concesión correspondiente","Circular solo en horario diurno","Llevar auxiliar de seguridad a bordo siempre"],ans:1},
+{lv:2,s:1,q:"¿Qué deben colocar los conductores al detenerse por caso fortuito o fuerza mayor?",opts:["Solo señales luminosas de emergencia","Dispositivos de advertencia a distancia reglamentaria","Llamar a grúa sin colocar señales","Solo encender las luces intermitentes"],ans:1},
+{lv:2,s:1,q:"En vía de doble sentido, ¿a cuántos metros se colocan los dispositivos de advertencia?",opts:["10 metros","50 metros","20 metros atrás y 20 en el carril opuesto","30 metros en ambos sentidos"],ans:2},
+{lv:2,s:1,q:"¿Qué obligación tienen los conductores de transporte público con su identificación?",opts:["Portarla en la guantera del vehículo","Portar el tarjetón de identificación del operador a la vista del pasajero","Solo presentarla cuando la autoridad lo solicite","Tenerla guardada con su licencia"],ans:1},
+{lv:2,s:1,q:"¿Qué sistema de retención deben usar los menores al viajar?",opts:["Solo cinturón estándar","Sistema de retención infantil o asiento elevador con certificación estandarizada y anclaje adecuado","Cualquier sistema artesanal","No requieren sistema especial mayores de 6 años"],ans:1},
+{lv:2,s:1,q:"¿Cuándo puede viajar un niño en el asiento delantero si el vehículo no tiene asiento trasero?",opts:["Siempre que sea mayor de 6 años","Solo si cuenta con sistema de retención infantil adecuado a su peso y se desactiva el airbag","Nunca bajo ninguna circunstancia","Solo si es acompañado por un adulto en el asiento delantero"],ans:1},
+{lv:2,s:1,q:"¿Qué obligación tienen los conductores de vehículos de transporte de carga?",opts:["Solo portar licencia vigente","Conducir con licencia vigente y contar con permiso o concesión correspondiente","Usar cromática autorizada por el IQT","Llevar solo la mercancía declarada en la factura"],ans:1},
+{lv:2,s:1,q:"¿Qué debe garantizar el conductor respecto a los cinturones de seguridad?",opts:["Solo él debe usar cinturón, los pasajeros deciden","Asegurarse que todos los pasajeros utilicen correctamente el cinturón además de colocarse el propio","Solo los pasajeros en asientos delanteros","Solo en carretera, no en ciudad"],ans:1},
+{lv:2,s:1,q:"¿Qué hacen los conductores de vehículos de transporte de sustancias tóxicas además de la licencia?",opts:["Solo necesitan licencia tipo C","Contar con sistema de identificación de unidades, permiso para transportar esas sustancias y protocolos de emergencia","Solo el permiso de la Secretaría","Nada adicional si llevan seguro de carga"],ans:1},
+{lv:2,s:1,q:"Los motociclistas deben portar aditamentos en horario nocturno. ¿Cuáles?",opts:["Solo el casco reglamentario","Aditamentos luminosos o bandas reflejantes en horario nocturno","Chaleco de identificación de color naranja","Guantes y botas únicamente"],ans:1},
+{lv:2,s:1,q:"¿A qué distancia mínima debe seguir un vehículo detrás de uno de emergencia con señales encendidas?",opts:["100 metros","20 metros","50 metros","30 metros"],ans:2},
+{lv:2,s:1,q:"¿Qué deben hacer los conductores de vehículos de transporte público con la cromática?",opts:["Pueden usar cualquier color","Deben utilizar la cromática autorizada por el Instituto Queretano del Transporte","Solo vehículos escolares tienen cromática obligatoria","La cromática es opcional para microbuses"],ans:1},
+
+/* Sección C — Prohibiciones intermedio (14) */
+{lv:2,s:2,q:"¿Qué tipo de cristales está prohibido instalar en vehículos?",opts:["Cristales con tinte azul homologado","Cristales polarizados u obscurecidos que obstruyan la visibilidad al interior","Cristales con protección UV certificada","Cristales laminados de seguridad"],ans:1},
+{lv:2,s:2,q:"¿En qué circunstancias está prohibido rebasar cuando hay raya central continua?",opts:["Solo en baja visibilidad","Solo en zonas urbanas","Siempre; la raya central continua prohíbe el rebase","Solo en vías de alta velocidad"],ans:2},
+{lv:2,s:2,q:"¿Qué se prohíbe en motocicletas respecto al transporte de pasajeros?",opts:["Transportar más de un acompañante mayor de edad","Transportar pasajeros menores de doce años de edad","Transportar a cualquier pasajero con casco","Transportar pasajeros con equipaje trasero"],ans:1},
+{lv:2,s:2,q:"¿Qué indica una guarnición de acera de color amarillo?",opts:["Estacionamiento de pago en esa zona","El estacionamiento está prohibido en esa área","Acceso restringido a vehículos de emergencia","La velocidad máxima es de 20 km/h"],ans:1},
+{lv:2,s:2,q:"¿Cuál es la regla de preferencia de paso en una glorieta?",opts:["Tiene preferencia quien entra con mayor velocidad","El vehículo que se encuentre dentro de la glorieta tiene preferencia; los que realizan movimiento para salir también","Siempre tiene preferencia quien viene por la derecha","Tienen preferencia los vehículos de mayor tamaño"],ans:1},
+{lv:2,s:2,q:"¿Qué preferencia existe cuando dos vehículos llegan simultáneamente a una intersección secundaria?",opts:["Tiene preferencia el vehículo más grande","Se cederá el paso al vehículo que se aproxime por su derecha","Tiene preferencia quien llegó primero","Se detienen ambos y cruzan alternando"],ans:1},
+{lv:2,s:2,q:"¿Qué se prohíbe cuando el conductor usa un dispositivo de apoyo a la conducción como GPS?",opts:["Usarlo en zonas escolares","Debe usarse siempre con el vehículo detenido; no durante la conducción","No está prohibido si es de voz","Usarlo solo en carretera"],ans:1},
+{lv:2,s:2,q:"¿Cuándo se prohíbe girar en 'U'?",opts:["Solo en avenidas primarias","Cerca de una curva donde la señalización restrictiva expresamente lo prohíba","En cualquier intersección con semáforo","Siempre, está prohibido en todo el estado"],ans:1},
+{lv:2,s:2,q:"¿Qué está prohibido en vehículos de transporte público o escolar respecto a cristales?",opts:["Instalar cualquier tipo de cristal de seguridad","Instalar en los cristales aditamentos u objetos distintos a las calcomanías reglamentarias","Usar cristales oscurecidos en la parte trasera","Colocar cortinas en las ventanas laterales"],ans:1},
+{lv:2,s:2,q:"¿Qué prohíben las vías con carriles confinados de transporte público?",opts:["Circular a menos de 40 km/h en esos carriles","Circular sobre los carriles confinados o en contraflujo salvo ser transporte público","Rebasar dentro de esos carriles","Detenerse en esos carriles aunque sea brevemente"],ans:1},
+{lv:2,s:2,q:"¿Cuándo se permite la vuelta continua a la derecha o izquierda?",opts:["Siempre, en cualquier intersección","Está permitida excepto cuando señalamiento la prohíba; siempre cediendo el paso a peatones y vehículos en circulación","Solo en intersecciones sin semáforo","Solo en vías secundarias de tránsito lento"],ans:1},
+{lv:2,s:2,q:"¿Qué se prohíbe cuando exista congestión vehicular aunque el semáforo esté en verde?",opts:["Tocar el claxon más de dos veces","Cruzar la intersección si no se puede hacerlo completamente, para no obstruir calles transversales","Disminuir la velocidad antes de la intersección","Cambiar de carril dentro de la intersección"],ans:1},
+{lv:2,s:2,q:"¿Qué está prohibido hacer al conducir con productos que puedan distraer?",opts:["Llevar comida en el asiento trasero","Portar objetos que impidan u obstruyan la visibilidad del conductor o lo distraigan","Llevar documentos del vehículo en la guantera","Tener el radio del vehículo encendido"],ans:1},
+{lv:2,s:2,q:"¿Qué se prohíbe cuando hay reducción de carriles?",opts:["Reducir la velocidad a menos de 40 km/h","Adelantarse a otros vehículos que le precedan sin intercalarse uno a uno","Cambiar de carril anticipadamente","Usar la bocina para avisar"],ans:1},
+
+/* Sección D — Normativa intermedia (6) */
+{lv:2,s:3,q:"¿Qué ocurre cuando una boleta de infracción es anulada?",opts:["Los puntos permanecen en el registro","Los puntos se descuentan con base en la resolución judicial o administrativa competente","Se descuentan automáticamente sin trámite","Los puntos solo se descuentan con amparo"],ans:1},
+{lv:2,s:3,q:"Para licencia tipo C, ¿cuántos años mínimos de experiencia se requieren?",opts:["Un año mínimo","Cinco años comprobables","Dos años mínimos o certificación del IQT","Tres años con historial limpio"],ans:2},
+{lv:2,s:3,q:"¿Qué puede hacer la autoridad cuando un conductor muestra síntomas de intoxicación?",opts:["Solo aplicar multa administrativa","Obligarlo a someterse a pruebas de detección de alcohol o narcóticos cuando lo solicite la autoridad competente","Solo retener su vehículo","Únicamente llamar a familiares"],ans:1},
+{lv:2,s:3,q:"¿Cuándo NO se expedirá o renovará una licencia para conducir?",opts:["Si el solicitante es extranjero con estancia legal","Si el permiso está suspendido, la documentación es falsa, o hay orden judicial o administrativa","Si el solicitante no tiene tarjeta de crédito","Si el vehículo no tiene verificación vigente"],ans:1},
+{lv:2,s:3,q:"¿Qué debe incluir la licencia tipo C además de los requisitos base?",opts:["Solo examen teórico avanzado","Experiencia mínima de 2 años o certificación del IQT, examen antidoping, Tarjetón de Operador y permiso o concesión del IQT","Solo comprobar domicilio y solvencia","Únicamente examen médico especializado"],ans:1},
+{lv:2,s:3,q:"¿Qué vigencia tienen los puntos de penalización desde la expedición de la boleta?",opts:["6 meses","2 años","1 año","Son permanentes hasta pagar la multa"],ans:2},
+
+/* ══════════════════════════════════
+   NIVEL 3 — AVANZADO (30 preguntas)
+   ══════════════════════════════════ */
+/* Sección A — Señales avanzado (6) */
+{lv:3,s:0,q:"¿Qué debe hacer un conductor cuando los semáforos tienen luces intermitentes?",opts:["Detenerse completamente y esperar que cambie","El conductor que transita por la vía cuyo semáforo destella en ámbar tiene preferencia sobre quien destella en rojo, quien debe hacer alto total y cruzar con precaución","Continuar a velocidad normal si la luz es amarilla","Ceder el paso a todos los vehículos sin excepción"],ans:1},
+{lv:3,s:0,q:"En una pendiente donde dos vehículos se encuentran y no pueden pasar simultáneamente, ¿quién tiene preferencia?",opts:["El que lleva mayor velocidad","El conductor del vehículo que va en sentido ascendente","El que viene de la vía primaria","El vehículo de mayor tamaño"],ans:1},
+{lv:3,s:0,q:"Cuando la intersección está regulada por personal operativo, ¿qué deben seguir los conductores?",opts:["Las reglas de preferencia de paso del reglamento","Las indicaciones del personal operativo, independientemente de las reglas de preferencia","Las señales de los semáforos sobre cualquier otra indicación","Su propio criterio si el agente está lejos"],ans:1},
+{lv:3,s:0,q:"¿Qué preferencia tiene el vehículo en una vía de doble sentido frente a uno en vía de un solo sentido?",opts:["El de un solo sentido tiene preferencia","El de doble sentido tiene preferencia sobre el de un solo sentido","Se alternan sin preferencia definida","Tiene preferencia el de mayor velocidad"],ans:1},
+{lv:3,s:0,q:"En reducción de carriles con congestión vial, ¿cómo deben guardar el orden todos los vehículos?",opts:["El carril que se conserva tiene prioridad absoluta","Todos los vehículos guardan el orden sin adelantarse, intercalándose uno a uno","Los vehículos de emergencia pasan primero siempre","Los vehículos más pequeños tienen prioridad"],ans:1},
+{lv:3,s:0,q:"¿Qué preferencia tiene el ferrocarril y el transporte público en carriles exclusivos?",opts:["No tienen preferencia especial sobre vehículos privados","El ferrocarril y el transporte público en carriles exclusivos confinados o en contraflujo tienen preferencia de paso","Solo el ferrocarril tiene preferencia, no el transporte público","Solo en intersecciones con señalamiento específico"],ans:1},
+
+/* Sección B — Obligaciones avanzado (8) */
+{lv:3,s:1,q:"¿Qué cantidad de alcohol está permitida para conductores particulares?",opts:["Hasta 1.5 gramos por litro de sangre","Hasta 0.8 gramos por litro de sangre o 0.2 miligramos por litro en aire espirado","Ninguna cantidad de alcohol","Solo 0.5 gramos por litro"],ans:1},
+{lv:3,s:1,q:"¿Qué cantidad de alcohol está permitida para transporte público, escolar y de emergencia?",opts:["Hasta 0.8 gramos por litro","Hasta 0.2 mg en aire espirado","Ninguna; no deben presentar ningún nivel de alcohol ni síntomas","La misma que para conductores particulares"],ans:2},
+{lv:3,s:1,q:"Los conductores de automóviles que viajan con pasajeros menores de 12 años o de menos de 1.45 m, ¿dónde deben ubicarlos?",opts:["En cualquier asiento posterior","En plazas traseras sobre la hilera inmediatamente posterior al conductor o copiloto, con cinturón de tres puntas","En el asiento del copiloto si no hay espacio atrás","En cualquier asiento si usan sistema de retención"],ans:1},
+{lv:3,s:1,q:"¿Qué obliga al conductor a someterse a pruebas de detección de alcohol?",opts:["Cualquier agente de tránsito puede solicitarlas en cualquier momento","Cuando lo solicite la autoridad competente al encontrársele cometiendo infracciones o mostrando síntomas de intoxicación","Solo cuando cause un accidente con lesiones","Únicamente en retenes nocturnos autorizados"],ans:1},
+{lv:3,s:1,q:"¿Qué se prohíbe respecto al uso de sirenas, torretas y estrobos?",opts:["Usarlos en autopistas de peaje","Usarlos en horario nocturno","Su uso en cualquier vehículo que no sea de emergencia según la Ley","Usarlos en vehículos mayores de 3.5 toneladas"],ans:2},
+{lv:3,s:1,q:"¿Qué obligación tiene el motociclista que transporta un menor que no puede sujetarse por sí mismo?",opts:["Reducir la velocidad a 30 km/h","Está prohibido transportar al menor si no puede sujetarse y colocar pies en estribos, salvo aditamentos especiales","Usar un sistema de sujeción artesanal","Solo se permite si el menor usa casco completo"],ans:1},
+{lv:3,s:1,q:"¿Qué deben colocar los vehículos de transporte de sustancias peligrosas para identificarse?",opts:["Solo placas especiales de color rojo","Sistema de identificación de unidades conforme a la norma vigente, permiso para transportar esas sustancias y protocolos de emergencia","Solo marcas reflejantes en los costados","Únicamente el permiso de la Secretaría visible en el parabrisas"],ans:1},
+{lv:3,s:1,q:"¿Cuándo puede empujarse o remolcarse un vehículo sin grúa?",opts:["Siempre que sea dentro de una zona urbana","Solo si se trata de remolques o vehículos diseñados para ese fin, si obstruye la circulación, o si representa peligro y se lleva a lugar seguro","Nunca; siempre se requiere grúa","Solo en carreteras federales con permiso previo"],ans:1},
+
+/* Sección C — Sanciones y hechos avanzado (10) */
+{lv:3,s:2,q:"¿Cuántos puntos de penalización se aplican por conducir con alcohol sobre el límite?",opts:["3 puntos","10 puntos","6 puntos","2 puntos"],ans:2},
+{lv:3,s:2,q:"¿Qué sanción recibe quien conduce con licencia cancelada o suspendida?",opts:["Solo multa de 50 UMA y amonestación","Multa de 200 UMA vigente y remisión del vehículo al depósito","Suspensión de trámite de renovación por 30 días","Multa de 100 UMA y suspensión de 6 meses"],ans:1},
+{lv:3,s:2,q:"¿Qué ocurre si se certifica que el conductor sobrepasa el límite de alcohol?",opts:["Solo pierde puntos de su licencia","Se sanciona con multa de 50 a 60 veces la UMA y arresto administrativo más 6 puntos de penalización","Solo se le retira el vehículo temporalmente","Únicamente se le aplica multa económica"],ans:1},
+{lv:3,s:2,q:"¿Qué se aplica a quien es sorprendido conduciendo habiendo sido negada su licencia?",opts:["Solo pagar la multa correspondiente","Inhabilitación por 6 meses para tramitar licencia, multa de 100 a 150 UMA y remisión del vehículo al depósito","Solo se le retira el vehículo sin multa","Puede renovar trámite pagando sanción inmediatamente"],ans:1},
+{lv:3,s:2,q:"¿Qué deben hacer los involucrados en un hecho de tránsito con lesiones o derrame de combustible?",opts:["Continuar su marcha para no obstruir el tráfico","Informar inmediatamente a servicios de emergencia con ubicación, número de lesionados y tipo de derrame","Esperar dentro del vehículo a que lleguen las autoridades","Mover los vehículos para liberar el carril"],ans:1},
+{lv:3,s:2,q:"¿Qué deben hacer los conductores que pasen por el sitio de un hecho de tránsito sin estar involucrados?",opts:["Detenerse para ayudar obligatoriamente","Continuar su marcha sin entorpecer las acciones de auxilio, salvo que la autoridad solicite colaboración","Estacionar su vehículo y esperar a las autoridades","Llamar a emergencias y esperar respuesta"],ans:1},
+{lv:3,s:2,q:"¿Qué ocurre con los puntos de penalización si se paga la multa de la infracción?",opts:["Los puntos se cancelan automáticamente al pagar","El pago de la multa no exime al titular de cumplir la sanción económica; los puntos se mantienen","Los puntos se reducen a la mitad al pagar","Los puntos se eliminan tras 6 meses sin importar si se pagó"],ans:1},
+{lv:3,s:2,q:"¿La licencia tipo C por sí sola autoriza la conducción de vehículos de transporte público?",opts:["Sí, es suficiente para cualquier modalidad de transporte","No; el interesado debe contar además con Tarjetón de Identificación de Operador y permiso o concesión del IQT","Sí, pero solo para microbuses con menos de 20 asientos","Solo si acredita 5 años de experiencia comprobable"],ans:1},
+{lv:3,s:2,q:"Cuando un conductor sin licencia autorizada es sancionado, ¿por cuánto tiempo queda inhabilitado para tramitarla?",opts:["1 año","3 meses","6 meses","2 años"],ans:2},
+{lv:3,s:2,q:"¿Qué sucede con los puntos de penalización si la boleta de infracción es anulada por resolución judicial?",opts:["Los puntos permanecen hasta que el conductor los purgue","La Secretaría los descuenta con base en la resolución judicial o administrativa emitida por autoridad competente","Los puntos se reducen a la mitad automáticamente","El conductor debe solicitar expresamente la revisión cada año"],ans:1},
+
+/* Sección D — Normativa avanzada (6) */
+{lv:3,s:3,q:"¿Qué califica como hecho de tránsito que obliga a llamar servicios de emergencia?",opts:["Cualquier rasguño o abolladurra menor","Cuando se produzcan lesiones, muerte, derrame de combustible, sustancias tóxicas o peligrosas","Solo cuando hay muerte o lesiones graves","Cuando el daño supere 10 veces la UMA"],ans:1},
+{lv:3,s:3,q:"¿Quién realizará el cómputo de los puntos de penalización?",opts:["El agente que emitió la boleta de infracción","La Secretaría, con base en las boletas de infracción expedidas por personal operativo","El conductor, según el reglamento vigente","El tribunal administrativo de Querétaro"],ans:1},
+{lv:3,s:3,q:"¿Cuál es la sanción económica por conducir bajo los efectos del alcohol cuando se certifica?",opts:["10 a 20 veces la UMA","50 a 60 veces la UMA más arresto administrativo y 6 puntos de penalización","Solo 6 puntos de penalización sin multa económica","200 veces la UMA igual que conducir sin licencia"],ans:1},
+{lv:3,s:3,q:"Para que un vehículo sea remolcado sin grúa por peligro a terceros, ¿qué debe hacerse?",opts:["Obtener permiso de la Secretaría antes del remolque","Colocarlo en un lugar seguro; los vehículos de transporte público NO pueden remolcarse sin grúa bajo ninguna excepción","Hacerlo solo en carretera con escolta","Notificar a la autoridad dentro de las 24 horas siguientes"],ans:1},
+{lv:3,s:3,q:"¿Qué requisito adicional exige la licencia tipo C que no exige la tipo A o B?",opts:["Solo más años de experiencia en conducción","La aprobación del examen antidoping que acredite que no consume drogas enervantes, psicotrópicos o estupefacientes","Solo el examen médico de agudeza audiovisual","El historial limpio de infracciones en los últimos 3 años"],ans:1},
+{lv:3,s:3,q:"Cuando el solicitante de una licencia se niega a manifestar su grupo sanguíneo, ¿qué ocurre?",opts:["Se rechaza automáticamente la solicitud","Deberán asentar esa situación, pero no se niega la licencia por esa razón","Se requiere un examen médico adicional obligatorio","Se pospone el trámite hasta que lo manifieste"],ans:1}
+];
+
+const SEC_NAMES = ['Señales','Obligaciones','Prohibiciones','Licencias y Sanciones'];
+const SEC_BADGES = ['sb-a','sb-b','sb-c','sb-d'];
+const SEC_LETTERS = ['A','B','C','D'];
+const LV_NAMES = ['','Nivel 1 — Fundamentos','Nivel 2 — Intermedio','Nivel 3 — Avanzado'];
+const LV_COLORS = ['','var(--lv1)','var(--lv2)','var(--lv3)'];
+const LV_FILLS = ['','lv1-fill','lv2-fill','lv3-fill'];
+const LV_BAR_COLORS = ['','#4F8EF7','#A060F0','#F07040'];
+
+// Estado
+let activeLv = 1;
+let queue = [];      // preguntas aleatorizadas del nivel activo
+let cur = 0;
+let answers = [];
+let totalOk = 0;
+let totalNo = 0;
+
+// ── LocalStorage ──
+function saveData(){
+  const d = {
+    intentos: getIntents(),
+    levels: {
+      lv1: loadLvData(1),
+      lv2: loadLvData(2),
+      lv3: loadLvData(3)
+    }
+  };
+  try{ localStorage.setItem('qro_exam_v2', JSON.stringify(d)); } catch(e){}
+}
+
+function getIntents(){
+  try{
+    const raw = localStorage.getItem('qro_exam_v2');
+    if(!raw) return 0;
+    return JSON.parse(raw).intentos || 0;
+  } catch(e){ return 0; }
+}
+
+function bumpIntents(){
+  try{
+    const raw = localStorage.getItem('qro_exam_v2');
+    const d = raw ? JSON.parse(raw) : {};
+    d.intentos = (d.intentos || 0) + 1;
+    localStorage.setItem('qro_exam_v2', JSON.stringify(d));
+  } catch(e){}
+}
+
+function saveLvResult(lv, ok, total){
+  try{
+    const raw = localStorage.getItem('qro_exam_v2');
+    const d = raw ? JSON.parse(raw) : {};
+    if(!d.levels) d.levels = {};
+    const key = 'lv'+lv;
+    if(!d.levels[key]){
+      d.levels[key] = {attempts:0, bestOk:0, bestTotal:total};
+    }
+    d.levels[key].attempts = (d.levels[key].attempts || 0) + 1;
+    d.levels[key].bestTotal = total;
+    if(ok > (d.levels[key].bestOk || 0)) d.levels[key].bestOk = ok;
+    d.intentos = (d.intentos || 0) + 1;
+    localStorage.setItem('qro_exam_v2', JSON.stringify(d));
+  } catch(e){}
+}
+
+function loadLvData(lv){
+  try{
+    const raw = localStorage.getItem('qro_exam_v2');
+    if(!raw) return null;
+    const d = JSON.parse(raw);
+    return (d.levels && d.levels['lv'+lv]) ? d.levels['lv'+lv] : null;
+  } catch(e){ return null; }
+}
+
+function loadGlobalStats(){
+  try{
+    const raw = localStorage.getItem('qro_exam_v2');
+    if(!raw) return {intentos:0, mejor:'—', completados:0};
+    const d = JSON.parse(raw);
+    let mejor = 0, completados = 0;
+    [1,2,3].forEach(lv=>{
+      const ld = d.levels && d.levels['lv'+lv];
+      if(ld && ld.attempts > 0){
+        completados++;
+        const pct = Math.round((ld.bestOk / ld.bestTotal)*100);
+        if(pct > mejor) mejor = pct;
+      }
+    });
+    return {
+      intentos: d.intentos || 0,
+      mejor: mejor > 0 ? mejor+'%' : '—',
+      completados
+    };
+  } catch(e){ return {intentos:0, mejor:'—', completados:0}; }
+}
+
+// ── Shuffle ──
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+// ── Home ──
+function renderHome(){
+  const gs = loadGlobalStats();
+  document.getElementById('gs-intentos').textContent = gs.intentos;
+  document.getElementById('gs-mejor').textContent = gs.mejor;
+  document.getElementById('gs-niveles').textContent = gs.completados+'/3';
+  [1,2,3].forEach(lv=>{
+    const ld = loadLvData(lv);
+    const progEl = document.getElementById('prog-lv'+lv);
+    const lblEl = document.getElementById('lbl-lv'+lv);
+    const scoreEl = document.getElementById('score-lv'+lv);
+    if(ld && ld.attempts > 0){
+      const pct = Math.round((ld.bestOk / ld.bestTotal)*100);
+      progEl.style.width = pct+'%';
+      lblEl.textContent = ld.attempts + (ld.attempts===1?' intento':' intentos');
+      scoreEl.textContent = 'Mejor: '+pct+'% ('+ld.bestOk+'/'+ld.bestTotal+')';
+    } else {
+      progEl.style.width = '0%';
+      lblEl.textContent = 'Sin intentos';
+      scoreEl.textContent = '';
+    }
+  });
+}
+
+function startLevel(lv){
+  activeLv = lv;
+  const lvQs = BANK.filter(q=>q.lv===lv);
+  queue = shuffle(lvQs);
+  cur = 0;
+  answers = new Array(queue.length).fill(null);
+  totalOk = 0; totalNo = 0;
+  document.getElementById('screen-home').style.display='none';
+  document.getElementById('screen-exam').style.display='block';
+  // topbar
+  const tl = document.getElementById('topbar-lv');
+  tl.textContent = LV_NAMES[lv];
+  tl.className = 'topbar-lv lv'+lv;
+  // progress fill color
+  document.getElementById('prog-fill').className = 'prog-fill '+LV_FILLS[lv];
+  render();
+}
+
+// ── Render pregunta ──
+function render(){
+  const q = queue[cur];
+  const total = queue.length;
+  document.getElementById('q-num').textContent = 'Pregunta ' + (cur+1) + ' de ' + total;
+  document.getElementById('q-text').textContent = q.q;
+  document.getElementById('sc-ok').textContent = '✓ '+totalOk;
+  document.getElementById('sc-no').textContent = '✗ '+totalNo;
+  document.getElementById('sc-num').textContent = (cur+1)+'/'+total;
+  const pct = Math.round(((cur+1)/total)*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-pct-txt').textContent = pct+'%';
+  document.getElementById('prog-sec-name').textContent = SEC_NAMES[q.s];
+  document.getElementById('sec-badge').innerHTML =
+    '<span class="sec-badge '+SEC_BADGES[q.s]+'">'+SEC_LETTERS[q.s]+' · '+SEC_NAMES[q.s]+'</span>';
+
+  const od = document.getElementById('opts');
+  od.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.innerHTML = '<span class="opt-letter">'+letters[i]+'</span><span>'+o+'</span>';
+    b.onclick = ()=>pick(i);
+    if(answers[cur]!==null){
+      b.disabled = true;
+      if(i===q.ans) b.classList.add('ans-correct');
+      else if(i===answers[cur]) b.classList.add('ans-wrong');
+    }
+    od.appendChild(b);
+  });
+
+  const fb = document.getElementById('feedback');
+  if(answers[cur]!==null){
+    const ok = answers[cur]===q.ans;
+    fb.className = 'feedback-box show '+(ok?'fb-ok':'fb-no');
+    fb.style.display = 'block';
+    fb.textContent = ok ? '✓ ¡Correcto!' :
+      '✗ Incorrecto. La respuesta correcta es: '+letters[q.ans]+') '+q.opts[q.ans];
+  } else {
+    fb.className = 'feedback-box';
+    fb.style.display = 'none';
+  }
+
+  document.getElementById('btn-prev').disabled = cur===0;
+  const isLast = cur===queue.length-1;
+  const answered = answers[cur]!==null;
+  document.getElementById('btn-next').disabled = !answered||isLast;
+  document.getElementById('btn-finish').style.display = (isLast&&answered)?'inline-block':'none';
+}
+
+function pick(i){
+  if(answers[cur]!==null) return;
+  answers[cur] = i;
+  if(i===queue[cur].ans) totalOk++; else totalNo++;
+  render();
+}
+
+function nextQ(){ if(cur<queue.length-1){cur++;render();} }
+function prevQ(){ if(cur>0){cur--;render();} }
+
+function goHome(){
+  document.getElementById('screen-exam').style.display='none';
+  document.getElementById('screen-results').style.display='none';
+  document.getElementById('screen-home').style.display='flex';
+  renderHome();
+}
+
+// ── Resultados ──
+function showResults(){
+  saveLvResult(activeLv, totalOk, queue.length);
+  document.getElementById('screen-exam').style.display='none';
+  const rs = document.getElementById('screen-results');
+  rs.style.display='flex';
+  rs.style.flexDirection='column';
+  const pct = Math.round((totalOk/queue.length)*100);
+  document.getElementById('res-badge').textContent = LV_NAMES[activeLv]+' — Resultado';
+  document.getElementById('res-pct').textContent = pct+'%';
+  document.getElementById('res-pct').style.color = pct>=70?LV_COLORS[activeLv]:'var(--red)';
+  document.getElementById('res-ok').textContent = totalOk;
+  document.getElementById('res-no').textContent = totalNo;
+  document.getElementById('res-tot').textContent = queue.length;
+  let label = '';
+  if(pct>=90) label='🏆 Excelente — ¡Listo para el examen real!';
+  else if(pct>=70) label='👍 Bien — Repasa los temas con errores';
+  else if(pct>=50) label='📖 Regular — Necesitas estudiar más';
+  else label='❌ Insuficiente — Repasa toda la guía';
+  document.getElementById('res-label').textContent = label;
+
+  // barras por sección
+  const barsEl = document.getElementById('sec-bars');
+  barsEl.innerHTML='';
+  [0,1,2,3].forEach(s=>{
+    const qs = queue.filter(q=>q.s===s);
+    if(qs.length===0) return;
+    let c=0;
+    queue.forEach((q,i)=>{ if(q.s===s&&answers[i]===q.ans) c++; });
+    const sp=Math.round((c/qs.length)*100);
+    barsEl.innerHTML+=`<div class="sb-row">
+      <span class="sb-name" style="color:var(--muted)">${SEC_LETTERS[s]} · ${SEC_NAMES[s]}</span>
+      <div class="sb-track"><div class="sb-bar" style="width:${sp}%;background:${LV_BAR_COLORS[activeLv]}"></div></div>
+      <span class="sb-pct">${sp}%</span>
+    </div>`;
+  });
+
+  // historial niveles
+  const histEl = document.getElementById('levels-history');
+  histEl.innerHTML='';
+  [1,2,3].forEach(lv=>{
+    const ld = loadLvData(lv);
+    let scoreText = '—';
+    let col = 'var(--muted)';
+    if(ld && ld.attempts>0){
+      const p=Math.round((ld.bestOk/ld.bestTotal)*100);
+      scoreText=p+'% ('+ld.bestOk+'/'+ld.bestTotal+')';
+      col=p>=70?LV_COLORS[lv]:'var(--red)';
+    }
+    histEl.innerHTML+=`<div class="als-row">
+      <span class="als-name">${LV_NAMES[lv]}</span>
+      <span class="als-score" style="color:${col}">${scoreText}</span>
+    </div>`;
+  });
+}
+
+function retryLevel(){ startLevel(activeLv); }
+
+// ── INIT ──
+renderHome();
+document.getElementById('screen-home').style.display='flex';
+document.getElementById('screen-home').style.flexDirection='column';
+</script>
+</body>
+</html>
